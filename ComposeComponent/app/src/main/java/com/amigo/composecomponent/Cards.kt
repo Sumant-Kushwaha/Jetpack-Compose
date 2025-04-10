@@ -8,38 +8,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewFunction() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth(.5f)
-            .padding(20.dp, top = 50.dp)
-    ) {
-        ImageCard()
-    }
-}
-
-@Composable
-fun ImageCard() {
+fun ImageCard(painter: Painter, description: String, title: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -48,14 +33,13 @@ fun ImageCard() {
     ) {
         Box(
             modifier = Modifier
-                .height(200.dp)
+                .fillMaxHeight(.5f)
         ) {
             Image(
-                painterResource(R.drawable.image),
-                contentDescription = "Me and my wife",
+                painter,
+                description,
                 contentScale = ContentScale.Crop
             )
-
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -69,22 +53,13 @@ fun ImageCard() {
                         )
                     )
             )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
-                contentAlignment = Alignment.BottomStart
-            ) {
-                Text(
-                    text = "I am with my patni",
-                    style = TextStyle(
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                )
+            Box(modifier= Modifier
+                .fillMaxSize()
+                .padding(10.dp),
+                contentAlignment = Alignment.BottomStart){
+                Text(text = title,
+                    style = TextStyle(Color.White, fontSize = 15.sp))
             }
         }
-
     }
 }
-
