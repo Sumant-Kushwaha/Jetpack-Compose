@@ -34,9 +34,10 @@ class MainActivity : ComponentActivity() {
 //            ColumnExample()
 //            Modifiers()
 //            ImageCard(painterResource(R.drawable.image),"Omi and sumant","Husband and wife on holiday")
-            Box(Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
-                TextStyling()
-            }
+//            Box(Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
+//                TextStyling()
+//            }
+            NotificationScreen()
         }
     }
 }
