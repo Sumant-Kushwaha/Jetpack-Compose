@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -32,7 +33,10 @@ class MainActivity : ComponentActivity() {
         setContent {
 //            ColumnExample()
 //            Modifiers()
-            ImageCard(painterResource(R.drawable.image),"Omi and sumant","Husband and wife on holiday")
+//            ImageCard(painterResource(R.drawable.image),"Omi and sumant","Husband and wife on holiday")
+            Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
+                TextStyling()
+            }
         }
     }
 }
