@@ -37,8 +37,15 @@ class MainActivity : ComponentActivity() {
 //            Box(Modifier.fillMaxSize(),contentAlignment = Alignment.Center) {
 //                TextStyling()
 //            }
-            PreviewFunction()
+//            PreviewFunction()
 //            NotificationScreen()
+             Column (
+                 modifier = Modifier
+                     .fillMaxSize(1f)
+                     .background(Color.Cyan)
+             ){
+                 PreviewFunction()
+             }
         }
     }
 }
