@@ -33,9 +33,17 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 fun PreviewFunction() {
-    Column {
+//    Column {
+//        Box(Modifier.padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()))
+//        BlogCategory(R.drawable.ic_profile, "Programmer", "Learning Different Languages")
+//    }
+    Column (
+        Modifier.verticalScroll(rememberScrollState())
+    ) {
         Box(Modifier.padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()))
-        BlogCategory(R.drawable.ic_profile, "Programmer", "Learning Different Languages")
+        getCategoryList().map { item->
+            BlogCategory(item.img,item.title,item.subTitle)
+        }
     }
 }
 
