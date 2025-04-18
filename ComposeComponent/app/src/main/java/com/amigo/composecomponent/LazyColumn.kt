@@ -1,18 +1,18 @@
 package com.amigo.composecomponent
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,64 +21,63 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+
 
 @Preview
 @Composable
-fun PreviewFunction(){
-//    Column(
-//        Modifier.padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding())
-//            .verticalScroll(rememberScrollState())
-//    ) {
-//        getCategory().map { item->
-//            BlogCategory(item.img,item.title,item.subTitle)
-//        }
-//    }
-    Column(
-        Modifier.padding(top= WindowInsets.statusBars.asPaddingValues().calculateTopPadding())
-    ) {
-    LazyColumn {
-        items(getCategory()){item->
-            BlogCategory(item.img,item.title,item.subTitle)
-        }
-    }
+fun PreviewFunction() {
+    Column {
+        Box(Modifier.padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()))
+        BlogCategory(R.drawable.ic_profile, "Programmer", "Learning Different Languages")
     }
 }
-
 
 @Composable
 fun BlogCategory(img: Int, title: String, subTitle: String) {
     Card(
+        Modifier.padding(start = 5.dp, end = 5.dp, top = 2.dp, bottom = 2.dp),
         elevation = CardDefaults.cardElevation(5.dp),
-        modifier = Modifier
-            .padding(8.dp)
+        shape = RoundedCornerShape(15.dp),
     ) {
-        Row(
-            Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+        Box(
+            modifier = Modifier
+                .background(
+                    Brush.horizontalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.Gray
+                        ),
+                        startX = 100f
+                    )
+                )
         ) {
-            Image(
-                painter = painterResource(img),
-                contentDescription = "Profile",
-                modifier=Modifier
-                    .weight(.2f)
-                    .size(48.dp),
-                colorFilter = ColorFilter.tint(Color.Red)
-            )
-            ItemDescription(title, subTitle,modifier=Modifier.weight(.8f))
+            Row(
+                Modifier.padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painterResource(img),
+                    "Image",
+                    colorFilter = ColorFilter.tint(Color.Red),
+                    modifier = Modifier
+                        .size(48.dp)
+                        .weight(.2f)
+                )
+                ItemDescription(title, subTitle, modifier = Modifier.weight(.8f))
+            }
         }
     }
 }
 
 @Composable
-private fun ItemDescription(title: String,subTitle: String,modifier: Modifier) {
+fun ItemDescription(title: String, subTitle: String, modifier: Modifier) {
     Column(
         modifier = modifier
     ) {
@@ -89,8 +88,7 @@ private fun ItemDescription(title: String,subTitle: String,modifier: Modifier) {
         Text(
             subTitle,
             style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Normal,
-            fontSize = 15.sp
+            fontWeight = FontWeight.Normal
         )
     }
 }
@@ -101,55 +99,57 @@ data class Category(
     val subTitle: String
 )
 
-fun getCategory(): MutableList<Category> {
+
+fun getCategoryList(): List<Category> {
     val list = mutableListOf<Category>()
-    list.add(Category(R.drawable.ic_profile, "Doctor", "Have MBBS degree"))
-    list.add(Category(R.drawable.ic_profile, "Engineer", "Builds and designs structures"))
-    list.add(Category(R.drawable.ic_profile, "Teacher", "Educates students"))
-    list.add(Category(R.drawable.ic_profile, "Artist", "Creates art and paintings"))
-    list.add(Category(R.drawable.ic_profile, "Musician", "Plays musical instruments"))
-    list.add(Category(R.drawable.ic_profile, "Chef", "Cooks delicious meals"))
-    list.add(Category(R.drawable.ic_profile, "Writer", "Writes books and articles"))
-    list.add(Category(R.drawable.ic_profile, "Photographer", "Captures moments"))
-    list.add(Category(R.drawable.ic_profile, "Pilot", "Flies airplanes"))
-    list.add(Category(R.drawable.ic_profile, "Nurse", "Provides medical care"))
-    list.add(Category(R.drawable.ic_profile, "Scientist", "Conducts research"))
-    list.add(Category(R.drawable.ic_profile, "Lawyer", "Practices law"))
-    list.add(Category(R.drawable.ic_profile, "Farmer", "Grows crops"))
-    list.add(Category(R.drawable.ic_profile, "Mechanic", "Repairs vehicles"))
-    list.add(Category(R.drawable.ic_profile, "Electrician", "Installs electrical systems"))
-    list.add(Category(R.drawable.ic_profile, "Plumber", "Fixes plumbing issues"))
-    list.add(Category(R.drawable.ic_profile, "Carpenter", "Builds wooden structures"))
-    list.add(Category(R.drawable.ic_profile, "Designer", "Designs graphics and products"))
-    list.add(Category(R.drawable.ic_profile, "Architect", "Designs buildings"))
-    list.add(Category(R.drawable.ic_profile, "Veterinarian", "Treats animals"))
-    list.add(Category(R.drawable.ic_profile, "Dentist", "Takes care of teeth"))
-    list.add(Category(R.drawable.ic_profile, "Firefighter", "Extinguishes fires"))
-    list.add(Category(R.drawable.ic_profile, "Police Officer", "Maintains law and order"))
-    list.add(Category(R.drawable.ic_profile, "Paramedic", "Provides emergency medical care"))
-    list.add(Category(R.drawable.ic_profile, "Astronaut", "Explores space"))
-    list.add(Category(R.drawable.ic_profile, "Journalist", "Reports news"))
-    list.add(Category(R.drawable.ic_profile, "Actor", "Performs in movies and plays"))
-    list.add(Category(R.drawable.ic_profile, "Director", "Directs movies and shows"))
-    list.add(Category(R.drawable.ic_profile, "Entrepreneur", "Starts and runs businesses"))
-    list.add(Category(R.drawable.ic_profile, "Software Developer", "Writes code"))
-    list.add(Category(R.drawable.ic_profile, "Data Scientist", "Analyzes data"))
-    list.add(Category(R.drawable.ic_profile, "AI Specialist", "Works on artificial intelligence"))
-    list.add(Category(R.drawable.ic_profile, "Game Developer", "Creates video games"))
-    list.add(Category(R.drawable.ic_profile, "Cybersecurity Expert", "Secures systems"))
-    list.add(Category(R.drawable.ic_profile, "Digital Marketer", "Promotes products online"))
-    list.add(Category(R.drawable.ic_profile, "Content Creator", "Creates online content"))
-    list.add(Category(R.drawable.ic_profile, "Social Worker", "Helps communities"))
-    list.add(Category(R.drawable.ic_profile, "Psychologist", "Studies human behavior"))
-    list.add(Category(R.drawable.ic_profile, "Therapist", "Provides mental health support"))
-    list.add(Category(R.drawable.ic_profile, "Coach", "Trains individuals or teams"))
-    list.add(Category(R.drawable.ic_profile, "Athlete", "Competes in sports"))
-    list.add(Category(R.drawable.ic_profile, "Librarian", "Manages libraries"))
-    list.add(Category(R.drawable.ic_profile, "Translator", "Translates languages"))
-    list.add(Category(R.drawable.ic_profile, "Tour Guide", "Guides tourists"))
-    list.add(Category(R.drawable.ic_profile, "Barista", "Prepares coffee"))
-    list.add(Category(R.drawable.ic_profile, "Tailor", "Makes and alters clothes"))
-    list.add(Category(R.drawable.ic_profile, "Florist", "Arranges flowers"))
-    list.add(Category(R.drawable.ic_profile, "Event Planner", "Organizes events"))
+    list.add(Category(R.drawable.ic_profile, "Doctor", "Learning MBBS"))
+    list.add(Category(R.drawable.ic_profile, "Engineer", "Building Structures"))
+    list.add(Category(R.drawable.ic_profile, "Artist", "Creating Masterpieces"))
+    list.add(Category(R.drawable.ic_profile, "Teacher", "Educating Students"))
+    list.add(Category(R.drawable.ic_profile, "Scientist", "Exploring Innovations"))
+    list.add(Category(R.drawable.ic_profile, "Chef", "Cooking Delicious Meals"))
+    list.add(Category(R.drawable.ic_profile, "Pilot", "Flying High"))
+    list.add(Category(R.drawable.ic_profile, "Writer", "Crafting Stories"))
+    list.add(Category(R.drawable.ic_profile, "Musician", "Composing Music"))
+    list.add(Category(R.drawable.ic_profile, "Photographer", "Capturing Moments"))
+    list.add(Category(R.drawable.ic_profile, "Farmer", "Growing Crops"))
+    list.add(Category(R.drawable.ic_profile, "Lawyer", "Fighting for Justice"))
+    list.add(Category(R.drawable.ic_profile, "Nurse", "Caring for Patients"))
+    list.add(Category(R.drawable.ic_profile, "Athlete", "Competing in Sports"))
+    list.add(Category(R.drawable.ic_profile, "Designer", "Creating Visuals"))
+    list.add(Category(R.drawable.ic_profile, "Mechanic", "Fixing Machines"))
+    list.add(Category(R.drawable.ic_profile, "Carpenter", "Building Furniture"))
+    list.add(Category(R.drawable.ic_profile, "Electrician", "Wiring Homes"))
+    list.add(Category(R.drawable.ic_profile, "Plumber", "Fixing Pipes"))
+    list.add(Category(R.drawable.ic_profile, "Architect", "Designing Buildings"))
+    list.add(Category(R.drawable.ic_profile, "Veterinarian", "Treating Animals"))
+    list.add(Category(R.drawable.ic_profile, "Firefighter", "Saving Lives"))
+    list.add(Category(R.drawable.ic_profile, "Police Officer", "Maintaining Order"))
+    list.add(Category(R.drawable.ic_profile, "Astronaut", "Exploring Space"))
+    list.add(Category(R.drawable.ic_profile, "Entrepreneur", "Starting Businesses"))
+    list.add(Category(R.drawable.ic_profile, "Psychologist", "Understanding Minds"))
+    list.add(Category(R.drawable.ic_profile, "Librarian", "Organizing Books"))
+    list.add(Category(R.drawable.ic_profile, "Journalist", "Reporting News"))
+    list.add(Category(R.drawable.ic_profile, "Barber", "Styling Hair"))
+    list.add(Category(R.drawable.ic_profile, "Tailor", "Sewing Clothes"))
+    list.add(Category(R.drawable.ic_profile, "Dancer", "Performing Art"))
+    list.add(Category(R.drawable.ic_profile, "Actor", "Portraying Characters"))
+    list.add(Category(R.drawable.ic_profile, "Coach", "Training Athletes"))
+    list.add(Category(R.drawable.ic_profile, "Gardener", "Maintaining Gardens"))
+    list.add(Category(R.drawable.ic_profile, "Translator", "Converting Languages"))
+    list.add(Category(R.drawable.ic_profile, "Programmer", "Writing Code"))
+    list.add(Category(R.drawable.ic_profile, "Data Scientist", "Analyzing Data"))
+    list.add(Category(R.drawable.ic_profile, "Game Developer", "Creating Games"))
+    list.add(Category(R.drawable.ic_profile, "UI/UX Designer", "Improving User Experience"))
+    list.add(Category(R.drawable.ic_profile, "Content Creator", "Producing Media"))
+    list.add(Category(R.drawable.ic_profile, "Digital Marketer", "Promoting Brands"))
+    list.add(Category(R.drawable.ic_profile, "Social Worker", "Helping Communities"))
+    list.add(Category(R.drawable.ic_profile, "Environmentalist", "Protecting Nature"))
+    list.add(Category(R.drawable.ic_profile, "Biologist", "Studying Life"))
+    list.add(Category(R.drawable.ic_profile, "Chemist", "Experimenting with Chemicals"))
+    list.add(Category(R.drawable.ic_profile, "Physicist", "Exploring Physics"))
+    list.add(Category(R.drawable.ic_profile, "Mathematician", "Solving Problems"))
+    list.add(Category(R.drawable.ic_profile, "Statistician", "Analyzing Numbers"))
+    list.add(Category(R.drawable.ic_profile, "Economist", "Studying Economies"))
     return list
 }
